@@ -287,3 +287,49 @@ console.log(store.state);
 store.state = 'Dave';
 // store.state = 425;
 const myState = new StateObject([4]);
+const assign = {
+    studentId: 'dbadb',
+    title: 'fgadg',
+    grade: 4125,
+};
+const updateAssignment = (assign, propsToUpdate) => {
+    return Object.assign(Object.assign({}, assign), propsToUpdate);
+};
+const assignGraded = updateAssignment(assign, { grade: 424 });
+// requiered and readonly 
+// with this utility type use created interface and type optional parameter 
+// will also going to required
+const recordAssignment = (assign) => {
+    // send data to database and etc .
+    return assign;
+};
+// all the used keys will going to readonly of this object
+const assignVerified = Object.assign(Object.assign({}, assignGraded), { verified: true });
+// Record
+const hexColorMap = {
+    red: "#FFF",
+    green: "#00535"
+};
+const finalGrades = {
+    sara: 'A',
+    kelly: 'B'
+};
+const gradeData = {
+    sara: { grade1: 1, grade2: 3 },
+    kelly: { grade1: 1, grade2: 3 }
+};
+const score = {
+    studentId: 'K123',
+    grade: 3131
+};
+const preview = {
+    studentId: '2',
+    title: 'final project'
+};
+// ReturnType 
+// if you want to create a dynamic type from any function return type then you can use this utility type 
+const createNewAssign = (title, points) => {
+    return { title, points };
+};
+const newAssign = createNewAssign('hello', 52);
+const assignArgs = ['wqt', 35];

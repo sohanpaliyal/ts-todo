@@ -502,3 +502,146 @@ store.state = 'Dave';
 
 
 const myState = new StateObject<(string | number | boolean)[]>([4])
+
+
+
+
+
+// UTILITY TYPES
+// Partials<Assignment>
+// Required<Assignment>
+
+// Partials
+
+interface Assignment {
+    studentId : string,
+    title :string ,
+    grade : number,
+    verified ? : boolean
+}
+
+const assign : Assignment =  {
+    studentId : 'dbadb',
+    title :'fgadg',
+    grade : 4125,
+}
+
+
+const updateAssignment = (assign :Assignment ,propsToUpdate:Partial<Assignment>):Assignment =>{
+    return {...assign, ...propsToUpdate}
+}
+const assignGraded = updateAssignment(assign, {grade : 424})
+
+
+
+
+
+
+// requiered and readonly 
+// with this utility type use created interface and type optional parameter 
+// will also going to required
+const recordAssignment = (assign: Required<Assignment>) :Assignment =>{
+    // send data to database and etc .
+    return assign;
+}
+
+// all the used keys will going to readonly of this object
+const assignVerified :Readonly<Assignment>= {
+    ...assignGraded, verified : true
+}
+
+// Record
+
+
+const hexColorMap:Record<string , string> = {
+    red : "#FFF",
+    green :"#00535"
+}
+
+
+
+type Students = 'sara' |'kelly';
+type LetterGrades = "A" | "B" | "C" | "D" | "U";
+
+
+const finalGrades : Record<Students, LetterGrades> = {
+    sara : 'A',
+    kelly : 'B'
+}
+
+
+interface Grades {
+    grade1 : number,
+    grade2 : number
+}
+
+
+const gradeData:Record<Students, Grades> =  {
+    sara:{grade1: 1, grade2 : 3},
+    kelly:{grade1: 1, grade2 : 3}
+}
+
+
+
+// Pick and Omit 
+// Pick is just an another version of Partials but in Pick you can 
+// specificlly pick what key you want to pick from type or interface 
+
+type AssignResult = Pick<Assignment, 'studentId' | 'grade'>
+
+
+const score : AssignResult = {
+    studentId : 'K123',
+    grade : 3131
+}
+
+
+// Omit --- in the Omit if you want to use that same interface but you want some keys should not be there then you can write omit for this 
+
+type AssignPreview = Omit<Assignment, 'grade' | 'verified'>;
+
+const preview : AssignPreview  = {
+    studentId : '2',
+    title : 'final project'
+}
+
+
+// Exclude and Extract
+// from any type if you want to exclude or extract some thing into a new type then you can use these utility types
+type adjustedGrade = Exclude<LetterGrades , 'U'>;
+type highGrades = Extract<LetterGrades , "A"| "B">;
+
+
+// NonNullable
+
+// if you want to extract a new type from any type which has null or undefined
+// then you can use this utility type 
+
+
+type AllPossibleGrades = "Dave" | 'Jhon' | null | undefined;
+type NamesOnly = NonNullable<AllPossibleGrades>
+
+
+
+
+// ReturnType 
+
+// if you want to create a dynamic type from any function return type then you can use this utility type 
+const createNewAssign= (title :string ,points : number)=>{
+    return {title , points}
+}
+
+// here as you can see we have created a function first then whatever typescript infering its return type we can create that type in ts for some other uses also
+
+// type NewAssign = {title : string , points : number};
+type NewAssign = ReturnType<typeof createNewAssign>
+
+
+const newAssign:NewAssign = createNewAssign('hello',52)
+
+
+// Parameters
+// this utility type will going to take your parmeters from fn and create a new tuple type 
+type AssignParams= Parameters<typeof createNewAssign>
+
+const assignArgs: AssignParams = ['wqt',35]
